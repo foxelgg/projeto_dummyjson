@@ -28,5 +28,26 @@ A análise exploratória desenvolvida na Camada Silver objetivou:
 - Os valores nulos da coluna 'brand' foram mantidos
 - Dada a alta quantidade de valores nulos e a baixa cardinalidade da coluna 'brand', métricas por marca não serão priorizadas nesta análise
 
-## 5. Conclusão
+## 5. Validações Pós-carga
+
+### Camada Silver
+Após a criação da tabela Silver, com tipagem correta e definição de constraint de chave primária, foram executadas validações para assegurar que:
+
+- O número de registros se manteve o mesmo em relação à tabela Bronze (sem perda de dados na carga)
+- A chave primária definida é única (cada linha da tabela com um valor diferente)
+- A chave primária nunca é nula
+
+Resultado: Nenhuma inconsistência ou erro inesperado foi encontrado.
+
+### Camada Gold
+Após a criação da tabela Gold, validações também foram executadas, para garantir:
+
+- Contagem de registros é idêntica a tabela Silver
+- Chave primária é única e não nula
+- Colunas numéricas não apresentam valores incorretos ou que violem regras de negócio (exemplo: estoque negativo)
+- Colunas calculadas criadas na Camada Gold são consistentes
+
+Resultado: Todas as regras de consistência foram satisfeitas.
+
+## 6. Conclusão
 Após Data Profiling e criação da tabela Silver com tipagens corretas e constraint primary key, os dados foram considerados adequados para a Camada Gold e para análises exploratórias, sem a necessidade de transformações, limpeza ou aplicação de regras de negócio.
