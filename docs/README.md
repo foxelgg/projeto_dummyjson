@@ -1,0 +1,2 @@
+# PROJETO 2 - API DummyJSON
+README inicial.
