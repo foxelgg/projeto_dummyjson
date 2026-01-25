@@ -37,6 +37,12 @@ SELECT
         ELSE 'Premium'
     END AS price_bucket,
     CASE
+        WHEN (price * (1 - discount_percentage / 100)) < 50 THEN '$0 - $49'
+        WHEN (price * (1 - discount_percentage / 100)) < 500 THEN '$50 - $499'
+        WHEN (price * (1 - discount_percentage / 100)) < 2000 THEN '$500 - $1999'
+        ELSE '+$2000'
+    END AS price_bucket_range,
+    CASE
         WHEN stock > 0 THEN 'Em estoque'
         ELSE 'Fora de estoque'
     END AS stock_status,
@@ -45,7 +51,13 @@ SELECT
         WHEN rating < 4 THEN 'Médio'
         WHEN rating < 4.5 THEN 'Alto'
         ELSE 'Excelente'
-    END AS rating_bucket
+    END AS rating_bucket,
+    CASE
+        WHEN rating < 3 THEN '0 - 2,99'
+        WHEN rating < 4 THEN '3 - 3,99'
+        WHEN rating < 4.5 THEN '4 - 4,49'
+        ELSE '4,5 - 5,0'
+    END AS rating_bucket_range
 FROM silver.products;
 
 -- Adicionando constraint de PRIMARY KEY na coluna product_id
