@@ -34,32 +34,32 @@ API DummyJSON (Dataset) -> Python (Coleta de dados via API) -> Camada Bronze (Da
 ## 4. Estrutura de Pastas
 
 /data
-    products_bronze.csv
+    products_bronze.csv                 # Dados extraídos da API DummyJSON com Python
 
 /docs
-    dq_rules.md
+    dq_rules.md                         # Regras de qualidade de dados
 
 /docs/diagrams
-    diagrama-dummy.drawio
-    diagrama-dummy.png
+    diagrama-dummy.drawio               # Diagrama editável da arquitetura
+    diagrama-dummy.png                  # Diagrama da arquitetura
 
 /scripts
-    collect_products.py
+    collect_products.py                 # Script de coleta via API DummyJSON
 
 /sql
-    00_create_schemas.sql
+    00_create_schemas.sql               # Criação de schemas Bronze, Silver e Gold no banco
 
 /sql/bronze
-    01_bronze_products.sql
+    01_bronze_products.sql              # Criação e carga da tabela Bronze
 
 /sql/silver
-    01_profiling_bronze_products.sql
-    02_silver_products.sql
+    01_profiling_bronze_products.sql    # Data Profiling da tabela Bronze
+    02_silver_products.sql              # Criação, carga e validação da tabela Silver
 
 /sql/gold
-    01_gold_products.sql
-    02_gold_validation.sql
-    03_gold_views.sql
+    01_gold_products.sql                # Criação e carga da tabela Gold
+    02_gold_validation.sql              # Validação da tabela Gold
+    03_gold_views.sql                   # Criação de views analíticas
 
 /.gitignore
 
@@ -105,7 +105,7 @@ As colunas criadas foram:
 - rating_bucket: Segregação de produtos por faixa de avaliação, utilizando as classificações 'Baixo', 'Médio', 'Alto' e 'Excelente'.
 - rating_bucket_range: Mesmo funcionamento da coluna 'rating_bucket', porém com as classificações explícitas '0 - 2,99', '3 - 3,99', '4 - 4,49' e '4,5 - 5,0'.
 
-Após a criação da tabela 'gold.products', foi executada uma validação de dados, para assegurar a integridade dos dados e garantir que nenhum dado foi perdido ou alterado durante a criação da tabela Gold. A validação de dados foi executada no arquivo '02_gold_validation.sql', e validou que:
+Após a criação da tabela 'gold.products', foi executada uma validação de dados, para assegurar a integridade dos dados e garantir que nenhum dado foi perdido ou alterado durante a criação da tabela Gold. A validação de dados foi executada no arquivo [02_gold_validation.sql](../sql/gold/02_gold_validation.sql), e validou que:
 
 - Chave primária não é nula.
 - Chave primária é única.
@@ -185,31 +185,31 @@ O script Python extrai os dados da API DummyJSON e gera o arquivo CSV.
 ```bash
 python scripts/collect_products.py
 ```
-O arquivo products_bronze.csv será criado no diretório 'data/'
+O arquivo [products_bronze.csv](../data/products_bronze.csv) será criado no diretório 'data/'
 
 **3. Criar Schemas no PostgreSQL**
 
-Executar o arquivo: /sql/00_create_schemas.sql
+Executar o arquivo: [00_create_schemas.sql](../sql/00_create_schemas.sql)
 
 **4. Criar Tabela Bronze e Carregar CSV**
 
-Executar o arquivo: /sql/bronze/01_bronze_products.sql
+Executar o arquivo: [01_bronze_products.sql](../sql/bronze/01_bronze_products.sql)
 
 **5. Executar Profiling e Criar Tabelas Silver**
 
 Executar os arquivos:
-/sql/silver/01_profiling_bronze_products.sql (Profiling da Tabela Bronze)
-/sql/silver/02_silver_products.sql (Criação, carga e validação da Tabela Silver)
+[01_profiling_bronze_products.sql](../sql/silver/01_profiling_bronze_products.sql) (Profiling da Tabela Bronze)
+[02_silver_products.sql](../sql/silver/02_silver_products.sql) (Criação, carga e validação da Tabela Silver)
 
 **6. Criar Tabela Gold e Executar Validações**
 
 Executar os arquivos:
-/sql/gold/01_gold_products.sql (Criação e carga da Tabela Gold)
-/sql/gold/02_gold_validation.sql (Validação de dados da Tabela Gold)
+[01_gold_products.sql](../sql/gold/01_gold_products.sql) (Criação e carga da Tabela Gold)
+[02_gold_validation.sql](../sql/gold/02_gold_validation.sql) (Validação de dados da Tabela Gold)
 
 **7. Criar Views Analíticas na Camada Gold**
 
-Executar o arquivo: /sql/gold/03_gold_views.sql
+Executar o arquivo: [03_gold_views.sql](../sql/gold/03_gold_views.sql)
 
 **8. Conectar Power BI ao PostgreSQL**
 
