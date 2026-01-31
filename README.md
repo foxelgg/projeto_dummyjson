@@ -29,10 +29,10 @@ API DummyJSON (Dataset) -> Python (Coleta de dados via API) -> Camada Bronze (Da
 
 ### 3.2 Diagrama da Arquitetura do Pipeline
 
-![Arquitetura do Pipeline](diagrams/diagrama-dummy.png)
+![Arquitetura do Pipeline](/docs/diagrams/diagrama-dummy.png)
 
 ## 4. Estrutura de Pastas
-
+```text
 /data
     products_bronze.csv                 # Dados extraídos da API DummyJSON com Python
 
@@ -64,7 +64,7 @@ API DummyJSON (Dataset) -> Python (Coleta de dados via API) -> Camada Bronze (Da
 /.gitignore
 
 /README.md
-
+```
 ## 5. Medallion Architecture e Qualidade dos Dados
 
 ### 5.1 Camada Bronze
@@ -105,7 +105,7 @@ As colunas criadas foram:
 - rating_bucket: Segregação de produtos por faixa de avaliação, utilizando as classificações 'Baixo', 'Médio', 'Alto' e 'Excelente'.
 - rating_bucket_range: Mesmo funcionamento da coluna 'rating_bucket', porém com as classificações explícitas '0 - 2,99', '3 - 3,99', '4 - 4,49' e '4,5 - 5,0'.
 
-Após a criação da tabela 'gold.products', foi executada uma validação de dados, para assegurar a integridade dos dados e garantir que nenhum dado foi perdido ou alterado durante a criação da tabela Gold. A validação de dados foi executada no arquivo [02_gold_validation.sql](../sql/gold/02_gold_validation.sql), e validou que:
+Após a criação da tabela 'gold.products', foi executada uma validação de dados, para assegurar a integridade dos dados e garantir que nenhum dado foi perdido ou alterado durante a criação da tabela Gold. A validação de dados foi executada no arquivo [02_gold_validation.sql](/sql/gold/02_gold_validation.sql), e validou que:
 
 - Chave primária não é nula.
 - Chave primária é única.
@@ -131,7 +131,7 @@ O desenvolvimento de visuais e análises no Power BI teve por objetivo transform
 
 Visão Geral do Dashboard:
 
-![Visão Geral do Dashboard](../power_bi/screenshots/dashboard.jpg)
+![Visão Geral do Dashboard](/power_bi/screenshots/dashboard.jpg)
 
 ### 6.1 Principais KPIs
 No dashboard, os principais indicadores (KPIs) estão dispostos em oito cards no topo da página. Esses indicadores apresentam as seguintes métricas:
@@ -150,7 +150,7 @@ O gráfico do tipo 'Treemap' de título "Top 6 Categorias por Total de Produtos"
 
 Tooltips do Gráfico "Top 6 Categorias por Total de Produtos"
 
-![Tooltips Gráfico Treemap](../power_bi/screenshots/tooltip.jpg)
+![Tooltips Gráfico Treemap](/power_bi/screenshots/tooltip.jpg)
 
 ### 6.3 Quantidade de Produtos por Faixa de Preços
 O gráfico de colunas "Quantidade de Produtos por Faixa de Preços" apresenta em ordem decrescente a quantidade de produtos únicos que pertencem a cada faixa de preço, utilizando a classificação da coluna 'price_bucket', criada nas views analíticas em SQL. Os tooltips apresentam: Faixa de Preço, Total de Produtos, Range da Faixa de Preço, Avaliação Média. Aqui entra a utilidade da coluna 'price_bucket_range', afim de elucidar o valor númerico que representa cada classificação de faixa de preço.
@@ -185,31 +185,31 @@ O script Python extrai os dados da API DummyJSON e gera o arquivo CSV.
 ```bash
 python scripts/collect_products.py
 ```
-O arquivo [products_bronze.csv](../data/products_bronze.csv) será criado no diretório 'data/'
+O arquivo [products_bronze.csv](/data/products_bronze.csv) será criado no diretório 'data/'
 
 **3. Criar Schemas no PostgreSQL**
 
-Executar o arquivo: [00_create_schemas.sql](../sql/00_create_schemas.sql)
+Executar o arquivo: [00_create_schemas.sql](/sql/00_create_schemas.sql)
 
 **4. Criar Tabela Bronze e Carregar CSV**
 
-Executar o arquivo: [01_bronze_products.sql](../sql/bronze/01_bronze_products.sql)
+Executar o arquivo: [01_bronze_products.sql](/sql/bronze/01_bronze_products.sql)
 
 **5. Executar Profiling e Criar Tabelas Silver**
 
 Executar os arquivos:
-[01_profiling_bronze_products.sql](../sql/silver/01_profiling_bronze_products.sql) (Profiling da Tabela Bronze)
-[02_silver_products.sql](../sql/silver/02_silver_products.sql) (Criação, carga e validação da Tabela Silver)
+[01_profiling_bronze_products.sql](/sql/silver/01_profiling_bronze_products.sql) (Profiling da Tabela Bronze)
+[02_silver_products.sql](/sql/silver/02_silver_products.sql) (Criação, carga e validação da Tabela Silver)
 
 **6. Criar Tabela Gold e Executar Validações**
 
 Executar os arquivos:
-[01_gold_products.sql](../sql/gold/01_gold_products.sql) (Criação e carga da Tabela Gold)
-[02_gold_validation.sql](../sql/gold/02_gold_validation.sql) (Validação de dados da Tabela Gold)
+[01_gold_products.sql](/sql/gold/01_gold_products.sql) (Criação e carga da Tabela Gold)
+[02_gold_validation.sql](/sql/gold/02_gold_validation.sql) (Validação de dados da Tabela Gold)
 
 **7. Criar Views Analíticas na Camada Gold**
 
-Executar o arquivo: [03_gold_views.sql](../sql/gold/03_gold_views.sql)
+Executar o arquivo: [03_gold_views.sql](/sql/gold/03_gold_views.sql)
 
 **8. Conectar Power BI ao PostgreSQL**
 
