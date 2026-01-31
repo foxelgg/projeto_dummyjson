@@ -4,7 +4,7 @@ Projeto de engenharia analítica utilizando dados da API DummyJSON, com pipeline
 ## 1. Visão Geral e Objetivo do Projeto
 
 ### 1.1 Visão Geral
-Este projeto utilizou dados da API DummyJSON, uma API bastante utilizada em ambientes educacionais e de desenvolvimento por ser pública. A DummyJSON simula um catálogo de produtos, e sua estrutura possui 22 colunas e 194 linhas. Os dados foram inseridos no banco de dados através de um arquivo CSV, que foi gerado, por sua vez, a partir de um script Python. 
+Este projeto utilizou dados da API DummyJSON, uma API bastante utilizada em ambientes educacionais e de desenvolvimento por ser pública. A DummyJSON simula um catálogo de produtos, e sua estrutura possui 22 colunas e 194 linhas. Os dados foram inseridos no banco de dados através de um arquivo CSV, que foi gerado, por sua vez, a partir de um script Python. Das 22 colunas, apenas 8 foram consideradas úteis para essa análise, sendo as demais excluídas do dataset a partir do script em Python.
 
 ### 1.2 Objetivo
 O objetivo deste projeto é construir um pipeline analítico a partir de dados extraídos da API pública de produtos DummyJSON, aplicando boas práticas de engenharia analítica, validação de qualidade de dados e desenvolvimento de dashboard em Power BI para visualização e exploração dos dados.
